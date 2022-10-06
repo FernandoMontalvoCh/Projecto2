@@ -120,10 +120,10 @@ const getUserProducts = catchAsync(async (req, res, next) => {
 });
 
 const getUserOrders = catchAsync(async (req, res, next) => {
-  const { sessionUser } = req;
+  const { userId } = req.params;
 
   const order = await Order.findOne({
-    where: { userId: sessionUser.id, status: 'purchased' },
+    where: { userId, status: 'purchased' },
   });
 
   res.status(200).json({ 
@@ -133,6 +133,16 @@ const getUserOrders = catchAsync(async (req, res, next) => {
 });
 
 const getUserOrderById = catchAsync(async (req, res, next) => {
+  const { userId } = req.params;
+
+	const order = await Order.findAll({
+		where: { userId, status: 'active' },
+	});
+
+	res.status(200).json({
+		status: 'success',
+		data: { order },
+	});
   res.status(200).json({ status: 'success' });
 });
 
