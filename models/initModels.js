@@ -9,35 +9,35 @@ const { Category } = require('./category.model');
 // Establish your models relations inside this function
 const initModels = () => {
   // 1 User <--> M Product
-  User.hasMany(Product);
+  User.hasMany(Product, { foreignKey: "userId" });
   Product.belongsTo(User);
 
   // 1 User <--> M Order
-  User.hasMany(Order);
+  User.hasMany(Order, { foreignKey: "userId"});
   Order.belongsTo(User);
 
   // 1 User <--> 1 Cart
-  User.hasOne(Cart);
+  User.hasOne(Cart, { foreignKey: "userId" });
   Cart.belongsTo(User);
 
   // 1 Product <--> M ProductImg
-  Product.hasMany(ProductImg);
+  Product.hasMany(ProductImg, {foreignKey: "productId" });
   ProductImg.belongsTo(Product);
 
   // 1 Category <--> 1 Product
-  Category.hasOne(Product);
+  Category.hasOne(Product, {foreignKey: "categoryId" });
   Product.belongsTo(Category);
 
   // 1 Cart <--> M ProductInCart
-  Cart.hasMany(ProductInCart);
+  Cart.hasMany(ProductInCart, {foreignKey: "cartId" });
   ProductInCart.belongsTo(Cart);
 
   // 1 Product <--> 1 ProductInCart
-  Product.hasOne(ProductInCart);
+  Product.hasOne(ProductInCart, { foreignKey: "cartId" });
   ProductInCart.belongsTo(Product);
 
   // 1 Order <--> 1 Cart
-  Cart.hasOne(Order);
+  Cart.hasOne(Order, {foreignKey: "cartId"});
   Order.belongsTo(Cart);
 };
 

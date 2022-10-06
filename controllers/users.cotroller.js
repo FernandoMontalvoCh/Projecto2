@@ -4,6 +4,7 @@ const dotenv = require('dotenv');
 
 // Models
 const { User } = require('../models/user.model');
+const { Product } = require('../models/product.model');
 
 // Utils
 const { catchAsync } = require('../utils/catchAsync.util');
@@ -91,10 +92,17 @@ const login = catchAsync(async (req, res, next) => {
 });
 
 const checkToken = catchAsync(async (req, res, next) => {
+  const { sessionUser } = req;
+
+  const user = await User.findOne({ where: { status: 'active', id: sessionUser.id }});
+
   res.status(200).json({ user: req.sessionUser });
 });
 
 const getUserProducts = catchAsync(async (req, res, next) => {
+  const { sessionUser } = req;
+
+
   res.status(200).json({ status: 'success' });
 });
 
