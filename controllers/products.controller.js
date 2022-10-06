@@ -2,6 +2,7 @@
 const { Product } = require('../models/product.model');
 const { Category } = require('../models/category.model');
 const { User } = require('../models/user.model');
+const { ProductImg } = require('../models/productImg.model');
 
 // Utils
 const { catchAsync } = require('../utils/catchAsync.util');
@@ -13,6 +14,7 @@ const getAllProducts = catchAsync(async (req, res, next) => {
     include: [
       { model: Category, attributes: ['name'] },
       { model: User, attributes: ['username', 'email'] },
+      { model: ProductImg},
     ],
   });
 

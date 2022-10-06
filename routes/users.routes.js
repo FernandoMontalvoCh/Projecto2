@@ -11,6 +11,9 @@ const {
   checkValidations,
 } = require('../middlewares/validators.middlewares');
 
+const { productExists } = require('../middlewares/products.middlewares');
+const { orderExists } = require('../middlewares/orders.middlewares');
+
 // Controller
 const {
   getAllUsers,
@@ -35,11 +38,11 @@ usersRouter.use(protectSession);
 
 usersRouter.get('/', getAllUsers);
 
-usersRouter.get('/me', getUserProducts);
+usersRouter.get('/me', productExists, getUserProducts);
 
-usersRouter.get('/orders', getUserOrders);
+usersRouter.get('/orders', orderExists, getUserOrders);
 
-usersRouter.get('/orders/:id', getUserOrderById);
+usersRouter.get('/orders/:id', orderExists,  getUserOrderById);
 
 usersRouter.get('/check-token', checkToken);
 
